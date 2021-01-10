@@ -82,22 +82,12 @@ function cform_light_sc( $atts ) {
         $result = $error_noemail;
     }
 
-    if ( $error == false ) {
-        $email_subject = "[" . get_bloginfo( 'name' ) . "] " . $form_data['subject'];
-        $email_message = $form_data['message'] . "\n\nIP: " . wptuts_get_the_ip();
-        $headers  = "From: " . $form_data['name'] . " <" . $form_data['email'] . ">\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\n";
-        $headers .= "Content-Transfer-Encoding: 8bit\n";
-        wp_mail( $email, $email_subject, $email_message, $headers );
-        $result = $success;
-        $sent = true;
-    }
     // but if $error is still FALSE, put together the POSTed variables and send the e-mail!
     if ( $error == false ) {
         // get the website's name and puts it in front of the subject
         $email_subject = "[" . get_bloginfo( 'name' ) . "] " . $form_data['subject'];
         // get the message from the form and add the IP address of the user below it
-        $email_message = $form_data['message'] . "\n\nIP: " . wptuts_get_the_ip();
+        $email_message = $form_data['message'] . "\n\nIP: " . cform_light_get_the_ip();
         // set the e-mail headers with the user's name, e-mail address and character encoding
         $headers  = "From: " . $form_data['your_name'] . " <" . $form_data['email'] . ">\n";
         $headers .= "Content-Type: text/plain; charset=UTF-8\n";
